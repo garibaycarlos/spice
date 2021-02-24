@@ -13,6 +13,8 @@ namespace Spice.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private const string StatusMessage = "Error: Category {0} already exists. Please use another name.";
+
         public CategoryController(ApplicationDbContext db)
         {
             _db = db;
@@ -37,15 +39,25 @@ namespace Spice.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _db.Category.AddAsync(category);
+                var getCategories = _db.Category.Where(c => c.Name == category.Name);
 
-                await _db.SaveChangesAsync();
+                if (getCategories.Count() > 0)
+                {
+                    // display error
+                    TempData["StatusMessage"] = string.Format(StatusMessage, category.Name);
+                }
+                else
+                {
+                    await _db.Category.AddAsync(category);
 
-                // when we return to any view, we actually return to an Action method which will then call the view
-                return RedirectToAction(nameof(Index));
+                    await _db.SaveChangesAsync();
+
+                    // when we return to any view, we actually return to an Action method which will then call the view
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
-            return View(category);
+            return View();
         }
 
         // GET - Edit
@@ -67,11 +79,22 @@ namespace Spice.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Update(category); // we use this method because we do not need to update several fields (just one here)
+                var getCategories = _db.Category.Where(c => c.Name == category.Name && c.Id != category.Id);
 
-                await _db.SaveChangesAsync();
+                if (getCategories.Count() > 0)
+                {
+                    // display error
+                    TempData["StatusMessage"] = string.Format(StatusMessage, category.Name);
+                }
+                else
+                {
+                    _db.Update(category); // we use this method because we do not need to update several fields (just one here)
 
-                return RedirectToAction(nameof(Index));
+                    await _db.SaveChangesAsync();
+
+                    // when we return to any view, we actually return to an Action method which will then call the view
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
             return View(category);
