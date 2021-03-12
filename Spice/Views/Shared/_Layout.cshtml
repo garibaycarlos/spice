@@ -28,8 +28,8 @@
                             <div class="dropdown-menu" aria-labelledby="navBarDropDownMenuLink">
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="SubCategory" asp-action="Index">Sub Category</a>
-                                <a class="dropdown-item">Menuitem</a>
-                                <a class="dropdown-item">Coupons</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="MenuItem" asp-action="Index">Menu Item</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Coupon" asp-action="Index">Coupons</a>
                                 <a class="dropdown-item">Users</a>
                             </div>
                         </li>
@@ -60,7 +60,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.tiny.cloud/1/qkf5ihf7r5pvsbuq7184hef84b8aoxgxfepkkmq968rzr1yb/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-
 </html>
