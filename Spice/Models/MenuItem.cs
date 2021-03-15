@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace Spice.Models
@@ -18,8 +19,10 @@ namespace Spice.Models
         public enum ESpicy
         {
             NA = 0,
+            [Display(Name = "Not Spicy")]
             NotSpicy = 1,
             Spicy = 2,
+            [Display(Name = "Very Spicy")]
             VerySpicy = 3
         }
 
