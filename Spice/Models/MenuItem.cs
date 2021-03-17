@@ -41,7 +41,6 @@ namespace Spice.Models
         public virtual SubCategory SubCategory { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Price should be greaten than ${1}")]
-
         public double Price { get; set; }
     }
 }
